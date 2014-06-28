@@ -21,6 +21,8 @@
 		221FF6CD195E324400370C1A /* LoadContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221FF6CC195E324400370C1A /* LoadContext.swift */; };
 		221FF6CF195E326300370C1A /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221FF6CE195E326300370C1A /* Enums.swift */; };
 		221FF6D2195E329200370C1A /* dyld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221FF6D1195E329200370C1A /* dyld.swift */; };
+		22C0A1DF195F21F00064221E /* MachOLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0A1DE195F21F00064221E /* MachOLoader.swift */; };
+		22C0A1E1195F28420064221E /* MachOTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0A1E0195F28420064221E /* MachOTypes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +53,8 @@
 		221FF6CC195E324400370C1A /* LoadContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadContext.swift; sourceTree = "<group>"; };
 		221FF6CE195E326300370C1A /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		221FF6D1195E329200370C1A /* dyld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dyld.swift; sourceTree = "<group>"; };
+		22C0A1DE195F21F00064221E /* MachOLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachOLoader.swift; sourceTree = "<group>"; };
+		22C0A1E0195F28420064221E /* MachOTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachOTypes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 			children = (
 				221FF6AF195E04FA00370C1A /* main.swift */,
 				221FF6CE195E326300370C1A /* Enums.swift */,
+				22C0A1E0195F28420064221E /* MachOTypes.swift */,
 				221FF6D0195E327900370C1A /* Types */,
 			);
 			path = swiftld;
@@ -105,6 +110,7 @@
 				221FF6CA195E322000370C1A /* Symbol.swift */,
 				221FF6CC195E324400370C1A /* LoadContext.swift */,
 				221FF6D1195E329200370C1A /* dyld.swift */,
+				22C0A1DE195F21F00064221E /* MachOLoader.swift */,
 			);
 			name = Types;
 			sourceTree = "<group>";
@@ -169,9 +175,11 @@
 				221FF6C7195E31FB00370C1A /* DynamicReference.swift in Sources */,
 				221FF6C5195E31E900370C1A /* ProgramVars.swift in Sources */,
 				221FF6BF195E318F00370C1A /* MappedRegion.swift in Sources */,
+				22C0A1DF195F21F00064221E /* MachOLoader.swift in Sources */,
 				221FF6B7195E0A1500370C1A /* ImageLoader.swift in Sources */,
 				221FF6BB195E312E00370C1A /* MappedRange.swift in Sources */,
 				221FF6C1195E31A800370C1A /* DOFInfo.swift in Sources */,
+				22C0A1E1195F28420064221E /* MachOTypes.swift in Sources */,
 				221FF6C3195E31CB00370C1A /* LinkContext.swift in Sources */,
 				221FF6CD195E324400370C1A /* LoadContext.swift in Sources */,
 				221FF6BD195E315000370C1A /* RegisteredDOF.swift in Sources */,

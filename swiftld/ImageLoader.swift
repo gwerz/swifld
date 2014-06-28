@@ -102,6 +102,11 @@ class ImageLoader {
 		self.fPathHash = self.hash(path);
 	}
 	
+	func setPaths(path: CString, realPath: CString) -> Void {
+		self.setPath(path);
+		self.fRealPath = realPath;
+	}
+	
 	func getRealPath() -> CString {
 		if (self.fRealPath != "") {
 			return self.fRealPath;
@@ -186,13 +191,13 @@ class ImageLoader {
 	}
 	
 	func checkHeaderFlag(flag: CInt) -> CBool {
-		var mh: mach_header = fMachOData.memory;
+		var mh: LoaderGenericHeader = fMachOData.memory;
 		var result = UInt(mh.flags) & UInt(flag);
 		return (result != 0);
 	}
 	
 	func checkFileType(type: CInt) -> CBool {
-		var mh: mach_header = self.fMachOData.memory;
+		var mh: LoaderGenericHeader = self.fMachOData.memory;
 		var result = UInt(mh.filetype) & UInt(type);
 		return (result != 0);
 	}
