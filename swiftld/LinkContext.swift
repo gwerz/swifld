@@ -58,4 +58,29 @@ struct LinkContext {
 	func flatExportFinder(name: CString, sym: UnsafePointer<Symbol>, image: ImageLoader) -> CBool {
 		return true;
 	}
+	
+	func coalescedExportFinder(name: CString, sym: UnsafePointer<UnsafePointer<Symbol>>, image: ImageLoader) -> CBool {
+		return true;
+	}
+	
+	func getCoalescedImage(image: ImageLoader[]) -> CInt {
+		return 0;
+	}
+	
+	func undefinedHandler(name: CString) -> Void {
+		
+	}
+	
+	func getAllMappedRegions() -> MappedRegion[] {
+		return [MappedRegion(address:0, size:0)];
+	}
+	
+	func bindingHandler(CString, CString, voidPtr) -> voidPtr {
+		return voidPtr.null();
+	}
+	
+	func notifySingle(state: dyld_image_state, image: ImageLoader) -> Void {
+		
+	}
+
 }
