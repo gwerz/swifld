@@ -30,7 +30,7 @@ class MachOLoader : ImageLoader {
 	}
 	
 	func segName(segIndex: CInt) -> CString {
-		return convert(self.segLoadCommand(segIndex).segment.segName);
+		return convertFrom(self.segLoadCommand(segIndex).segment.segName);
 	}
 	
 	func segSize(segIndex: CInt) -> uintptr_t {
@@ -77,5 +77,9 @@ class MachOLoader : ImageLoader {
 		return self.segActualLoadAddress(segIndex) + self.segSize(segIndex);
 	}
 	
-	
+	func segHasRebaseFixUps(segIndex: CInt) -> CBool {
+		var segment: LoaderGenericSegment = self.segLoadCommand(segIndex);
+		
+		return false;
+	}
 }

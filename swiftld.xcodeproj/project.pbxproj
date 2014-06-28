@@ -23,6 +23,7 @@
 		221FF6D2195E329200370C1A /* dyld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221FF6D1195E329200370C1A /* dyld.swift */; };
 		22C0A1DF195F21F00064221E /* MachOLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0A1DE195F21F00064221E /* MachOLoader.swift */; };
 		22C0A1E1195F28420064221E /* MachOTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0A1E0195F28420064221E /* MachOTypes.swift */; };
+		22C0A1E6195F3B0C0064221E /* MachOClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0A1E5195F3B0C0064221E /* MachOClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +56,7 @@
 		221FF6D1195E329200370C1A /* dyld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dyld.swift; sourceTree = "<group>"; };
 		22C0A1DE195F21F00064221E /* MachOLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachOLoader.swift; sourceTree = "<group>"; };
 		22C0A1E0195F28420064221E /* MachOTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachOTypes.swift; sourceTree = "<group>"; };
+		22C0A1E5195F3B0C0064221E /* MachOClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachOClass.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +91,7 @@
 			children = (
 				221FF6AF195E04FA00370C1A /* main.swift */,
 				221FF6CE195E326300370C1A /* Enums.swift */,
-				22C0A1E0195F28420064221E /* MachOTypes.swift */,
+				22C0A1E4195F3AFC0064221E /* MachO */,
 				221FF6D0195E327900370C1A /* Types */,
 			);
 			path = swiftld;
@@ -113,6 +115,15 @@
 				22C0A1DE195F21F00064221E /* MachOLoader.swift */,
 			);
 			name = Types;
+			sourceTree = "<group>";
+		};
+		22C0A1E4195F3AFC0064221E /* MachO */ = {
+			isa = PBXGroup;
+			children = (
+				22C0A1E0195F28420064221E /* MachOTypes.swift */,
+				22C0A1E5195F3B0C0064221E /* MachOClass.swift */,
+			);
+			name = MachO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,6 +186,7 @@
 				221FF6C7195E31FB00370C1A /* DynamicReference.swift in Sources */,
 				221FF6C5195E31E900370C1A /* ProgramVars.swift in Sources */,
 				221FF6BF195E318F00370C1A /* MappedRegion.swift in Sources */,
+				22C0A1E6195F3B0C0064221E /* MachOClass.swift in Sources */,
 				22C0A1DF195F21F00064221E /* MachOLoader.swift in Sources */,
 				221FF6B7195E0A1500370C1A /* ImageLoader.swift in Sources */,
 				221FF6BB195E312E00370C1A /* MappedRange.swift in Sources */,
