@@ -16,8 +16,10 @@ class ImageLoader {
 	var fSetLeaveMapped: CBool;
 	var fHideSymbols: CBool;
 	var fMachOData: MachHeaderPtr;
-	var fSlide: uintptr_t;;
+	var fSlide: uintptr_t;
 	var fSegmentCount: CInt;
+	var fSymbolTable: uintptr_t;
+	var fStrings: uintptr_t;
 	
 	var fPath: CString;
 	var fRealPath: CString;
@@ -47,6 +49,8 @@ class ImageLoader {
 		self.fSetLeaveMapped = false;
 		self.fHideSymbols = false;
 		self.fSegmentCount = 0;
+		self.fSymbolTable = 0;
+		self.fStrings = 0;
 	}
 	
 	func setFileInfo(device: dev_t, inode: ino_t, modDate: time_t) -> Void {
@@ -165,6 +169,10 @@ class ImageLoader {
 	
 	func lastModified() -> time_t {
 		return self.fLastModified;
+	}
+	
+	func containsSymbol(symbol: uintptr_t) -> CBool {
+		return (self.fSymbolTable <= symbol && symbol < self.fStrings);
 	}
 	
 	func containsAddress(addr: uintptr_t) -> CBool {
