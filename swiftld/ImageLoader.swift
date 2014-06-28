@@ -11,19 +11,40 @@ import MachO
 
 class ImageLoader {
 	var fState: dyld_image_state = dyld_image_state.initialized;
+	var fPathOwnedByImage: CBool;
+	var fMatchByInstallName: CBool;
+	var fSetLeaveMapped: CBool;
+	var fHideSymbols: CBool;
 	var fMachOData: MachHeaderPtr = UnsafePointer.null();
 	var fSlide: uintptr_t = 0;
+	
+	var fPath: CString;
+	var fRealPath: CString;
 	var fDevice: dev_t;
 	var fInode: ino_t;
 	var fLastModified: time_t;
+	var fPathHash: UInt32;
+	
+	var fDepth: UInt16;
+	var fLoadOrder: UInt16;
+	
 	
 	init() {
 		self.fState = dyld_image_state.terminated;
+		self.fPathOwnedByImage = false;
 		self.fMachOData = UnsafePointer.null();
 		self.fSlide = 0;
 		self.fDevice = 0;
 		self.fInode = 0;
 		self.fLastModified = 0;
+		self.fDepth = 0;
+		self.fLoadOrder = 0;
+		self.fPath = "";
+		self.fRealPath = "";
+		self.fPathHash = 0;
+		self.fMatchByInstallName = false;
+		self.fSetLeaveMapped = false;
+		self.fHideSymbols = false;
 	}
 	
 	func setFileInfo(device: dev_t, inode: ino_t, modDate: time_t) -> Void {
@@ -39,6 +60,109 @@ class ImageLoader {
 	func setMapped(context: LinkContext) -> Void {
 		fState = dyld_image_state.mapped;
 		context.notifySingle(dyld_image_state.mapped, image:self);
+	}
+	
+	func compare(image: ImageLoader) -> CInt {
+		if (self.fDepth == image.fDepth) {
+			if (self.fLoadOrder == image.fLoadOrder) {
+				return 0
+			}
+			else if (self.fLoadOrder < image.fLoadOrder) {
+				return -1;
+			}
+			else {
+				return 1;
+			}
+		}
+		else {
+			if (self.fDepth < image.fDepth) {
+				return -1;
+			}
+			else {
+				return 1;
+			}
+		}
+	}
+	
+	func setPath(path: CString) -> Void {
+		self.fPath = path;
+		self.fPathOwnedByImage = true;
+		self.fPathHash = self.hash(path);
+	}
+	
+	func setPathUnowned(path: CString) -> Void {
+		self.fPath = path;
+		self.fPathOwnedByImage = false;
+		self.fPathHash = self.hash(path);
+	}
+	
+	func getRealPath() -> CString {
+		if (self.fRealPath != "") {
+			return self.fRealPath;
+		}
+		else {
+			return self.fPath;
+		}
+	}
+	
+	func hash(path: CString) -> UInt32 {
+		var chars = path.persist() as CChar[];
+		var hash: UInt32 = 0;
+		for char: CChar in chars {
+			hash = hash*5 + UInt32(char);
+		}
+		return hash;
+	}
+	
+	func matchInstallPath() -> CBool {
+		return self.fMatchByInstallName;
+	}
+	
+	func setMatchByInstallPath(match: CBool) -> Void {
+		self.fMatchByInstallName = match;
+	}
+	
+	func statMatch(stat_buf: stat) -> CBool {
+		return (self.fDevice == stat_buf.st_dev && self.fInode == stat_buf.st_ino);
+	}
+	
+	func getShortName() -> CString {
+		return self.fPath;
+	}
+	
+	func setLeaveMapped() -> Void {
+		self.fSetLeaveMapped = true;
+	}
+	
+	func setHideExports(hide: CBool) -> Void {
+		self.fHideSymbols = hide;
+	}
+	
+	func hasHiddenExports() -> CBool {
+		return self.fHideSymbols;
+	}
+	
+	func isLinked() -> CBool {
+		switch (self.fState) {
+			case .mapped:
+				return false;
+			case .dependents_mapped:
+				return false;
+			case .rebased:
+				return false;
+			case .bound:
+				return true;
+			case .dependents_initialized:
+				return true;
+			case .initialized:
+				return true;
+			case .terminated:
+				return true;
+		}
+	}
+	
+	func lastModified() -> time_t {
+		return self.fLastModified;
 	}
 	
 	
