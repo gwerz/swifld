@@ -10,13 +10,14 @@ import Foundation
 import MachO
 
 class ImageLoader {
-	var fState: dyld_image_state = dyld_image_state.initialized;
+	var fState: dyld_image_state;
 	var fPathOwnedByImage: CBool;
 	var fMatchByInstallName: CBool;
 	var fSetLeaveMapped: CBool;
 	var fHideSymbols: CBool;
-	var fMachOData: MachHeaderPtr = UnsafePointer.null();
-	var fSlide: uintptr_t = 0;
+	var fMachOData: MachHeaderPtr;
+	var fSlide: uintptr_t;;
+	var fSegmentCount: CInt;
 	
 	var fPath: CString;
 	var fRealPath: CString;
@@ -30,7 +31,7 @@ class ImageLoader {
 	
 	
 	init() {
-		self.fState = dyld_image_state.terminated;
+		self.fState = dyld_image_state.initialized;
 		self.fPathOwnedByImage = false;
 		self.fMachOData = UnsafePointer.null();
 		self.fSlide = 0;
@@ -45,6 +46,7 @@ class ImageLoader {
 		self.fMatchByInstallName = false;
 		self.fSetLeaveMapped = false;
 		self.fHideSymbols = false;
+		self.fSegmentCount = 0;
 	}
 	
 	func setFileInfo(device: dev_t, inode: ino_t, modDate: time_t) -> Void {
@@ -165,7 +167,15 @@ class ImageLoader {
 		return self.fLastModified;
 	}
 	
-	
+	func containsAddress(addr: uintptr_t) -> CBool {
+		for index in 0..self.fSegmentCount {
+//			const uint8_t* start = (const uint8_t*)segActualLoadAddress(i);
+//			const uint8_t* end = (const uint8_t*)segActualEndAddress(i);
+//			if ( (start <= addr) && (addr < end) && !segUnaccessible(i) )
+//				return true;
+		}
+		return false;
+	}
 	
 	func checkHeaderFlag(flag: CInt) -> CBool {
 		var mh: mach_header = fMachOData.memory;
